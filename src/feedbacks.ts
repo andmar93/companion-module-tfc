@@ -79,7 +79,7 @@ export function UpdateFeedbacks(self: TfcRouteInstance): void {
 			},
 		},
 		routedSourceToVariableTarget: {
-			name: 'Routed Source to Variable Target',
+			name: 'Feedback on SectionIndex (variables)',
 			type: 'boolean',
 			defaultStyle: {
 				bgcolor: combineRgb(0, 200, 30),
