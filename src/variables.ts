@@ -10,6 +10,24 @@ export function UpdateVariableDefinitions(self: TfcRouteInstance): void {
 				value: sourceTarget?.name,
 			}
 		})
+
+	// Add target source variables for each target and level
+	const targetSourceVariables = self.panel.targets
+		.filter((target) => target !== undefined)
+		.flatMap((target) => {
+			return target!.sources.map((source) => {
+				// Find the source name by matching the source id
+				const sourceName = self.panel.sources.find((s) => s?.id === source.id)?.name || 'Unknown'
+				return {
+					variableId: `target_${target!.index}_${source.level}_source`,
+					name: `Target ${target!.index} ${source.level} Source`,
+					value: sourceName,
+				}
+			})
+		})
+
+	variableArray.push(...targetSourceVariables)
+
 	const variableObject: { [key: string]: string } = {}
 	variableArray.forEach((sourceTarget) => {
 		if (sourceTarget !== undefined && sourceTarget.variableId !== undefined) {

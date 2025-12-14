@@ -1,3 +1,4 @@
+
 import { InstanceBase, runEntrypoint, InstanceStatus } from '@companion-module/base'
 import { GetConfigFields, type ModuleConfig } from './config.js'
 import { UpdateVariableDefinitions } from './variables.js'
@@ -64,6 +65,9 @@ export class TfcRouteInstance extends InstanceBase<ModuleConfig> {
 						)
 					})
 				})
+
+				// Update variables to reflect new routing state
+				this.updateVariableDefinitions()
 
 				this.checkFeedbacks('routedSource', 'routedSourceToVariableTarget')
 			})
