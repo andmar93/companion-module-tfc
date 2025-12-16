@@ -1,48 +1,41 @@
 {
-	"name": "companion-module-tfc",
-	"version": "1.0.0",
-	"description": "Companion module for TFC",
-	"main": "dist/main.js",
-	"type": "module",
-	"scripts": {
-		"postinstall": "husky",
-		"format": "prettier -w .",
-		"package": "run build && companion-module-build",
-		"build": "tsc -p tsconfig.build.json",
-		"dev": "tsc -p tsconfig.build.json --watch",
-		"lint:raw": "eslint",
-		"lint": "run lint:raw ."
-	},
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/oxe-nep/companion-module-tfc.git"
-	},
-	"dependencies": {
-		"@companion-module/base": "^1.11.3",
-		"uuid": "^11.0.5",
-		"ws": "^8.11.0"
-	},
-	"devDependencies": {
-		"@companion-module/tools": "^2.1.1",
-		"@types/jest": "^29.5.14",
-		"@types/node": "^22.10.2",
-		"@types/ws": "^8.5.14",
-		"eslint": "^9.17.0",
-		"husky": "^9.1.7",
-		"lint-staged": "^15.2.11",
-		"prettier": "^3.4.2",
-		"rimraf": "^6.0.1",
-		"typescript": "~5.5.4",
-		"typescript-eslint": "^8.18.1"
-	},
-	"prettier": "@companion-module/tools/.prettierrc.json",
-	"lint-staged": {
-		"*.{css,json,md,scss}": [
-			"prettier --write"
-		],
-		"*.{ts,tsx,js,jsx}": [
-			"yarn lint:raw --fix"
-		]
-	}
+  "name": "companion-module-tfc",
+  "version": "1.0.3",
+  "description": "Companion module for TFC",
+  "main": "main.js",
+  "type": "commonjs",
+  "files": [
+    "main.js",
+    "companion",
+    "LICENSE"
+  ],
+  "scripts": {
+    "format": "prettier -w .",
+    "build": "esbuild src/main.ts --bundle --outfile=main.js --format=cjs --platform=node --target=node18 --external:@companion-module/base",
+    "dev": "esbuild src/main.ts --bundle --outfile=main.js --format=cjs --platform=node --target=node18 --external:@companion-module/base --watch",
+    "package": "npm run build && companion-module-build",
+    "lint:raw": "eslint",
+    "lint": "run lint:raw ."
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oxe-nep/companion-module-tfc.git"
+  },
+  "dependencies": {
+    "@companion-module/base": "^1.11.3",
+    "uuid": "^11.0.5",
+    "ws": "^8.11.0"
+  },
+  "devDependencies": {
+    "@companion-module/tools": "^2.1.1",
+    "@types/node": "^18.19.0",
+    "@types/ws": "^8.5.14",
+    "esbuild": "^0.27.1",
+    "eslint": "^9.17.0",
+    "prettier": "^3.4.2",
+    "typescript": "~5.5.4",
+    "typescript-eslint": "^8.18.1"
+  },
+  "prettier": "@companion-module/tools/.prettierrc.json"
 }

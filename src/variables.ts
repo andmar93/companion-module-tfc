@@ -11,7 +11,7 @@ export function UpdateVariableDefinitions(self: TfcRouteInstance): void {
 			}
 		})
 
-	// Add target source variables for each target and level
+	// Add target source variables for each target and level (showing source NAME)
 	const targetSourceVariables = self.panel.targets
 		.filter((target) => target !== undefined)
 		.flatMap((target) => {
@@ -26,7 +26,24 @@ export function UpdateVariableDefinitions(self: TfcRouteInstance): void {
 			})
 		})
 
+	// Add target source INDEX variables for each target and level (showing source SECTIONINDEX)
+	const targetSourceIndexVariables = self.panel.targets
+		.filter((target) => target !== undefined)
+		.flatMap((target) => {
+			return target!.sources.map((source) => {
+				// Find the source index by matching the source id
+				const sourceIndex = self.panel.sources.find((s) => s?.id === source.id)?.index
+				const sourceIndexValue = sourceIndex !== undefined ? sourceIndex.toString() : 'Unknown'
+				return {
+					variableId: `target_${target!.index}_${source.level}_source_index`,
+					name: `Target ${target!.index} ${source.level} Source Index`,
+					value: sourceIndexValue,
+				}
+			})
+		})
+
 	variableArray.push(...targetSourceVariables)
+	variableArray.push(...targetSourceIndexVariables)
 
 	const variableObject: { [key: string]: string } = {}
 	variableArray.forEach((sourceTarget) => {
