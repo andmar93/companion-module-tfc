@@ -65,7 +65,10 @@ export class TfcRouteInstance extends InstanceBase<ModuleConfig> {
 					})
 				})
 
-				this.checkFeedbacks('routedSource')
+				// Update variables to reflect new routing state
+				this.updateVariableDefinitions()
+
+				this.checkFeedbacks('routedSource', 'routedSourceToVariableTarget')
 			})
 
 			await this.connection.authorize(this.config.username, this.config.password)
