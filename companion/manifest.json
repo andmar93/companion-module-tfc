@@ -3,7 +3,7 @@
   "name": "tfc-routing",
   "shortname": "tfc-routing",
   "description": "Module for controlling NEP TFC via Websocket",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "license": "MIT",
   "repository": "git+https://github.com/oxe-nep/companion-module-tfc.git",
   "bugs": "https://github.com/bitfocus/companion-module-tfc/issues",

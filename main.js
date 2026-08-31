@@ -4530,6 +4530,61 @@ function UpdateActions(self) {
           self.tfcRoute(routeLevels, selectedSource, selectedTarget);
         }
       }
+    },
+    routeByUUID: {
+      name: "Route by UUID",
+      options: [
+        {
+          type: "textinput",
+          label: "Source UUID",
+          id: "sourceUUID",
+          default: "",
+          useVariables: true,
+          tooltip: "UUID (tag) of the source, e.g. $(module:variable) or a literal UUID"
+        },
+        {
+          type: "textinput",
+          label: "Target UUID",
+          id: "targetUUID",
+          default: "",
+          useVariables: true,
+          tooltip: "UUID (tag) of the target, e.g. $(module:variable) or a literal UUID"
+        },
+        {
+          type: "checkbox",
+          label: "Video",
+          id: "video",
+          default: true
+        },
+        {
+          type: "checkbox",
+          label: "Audio",
+          id: "audio",
+          default: true
+        },
+        {
+          type: "checkbox",
+          label: "Meta",
+          id: "meta",
+          default: false
+        }
+      ],
+      callback: async (event, context) => {
+        const routeLevels = [];
+        if (event.options.video) routeLevels.push("video");
+        if (event.options.audio) routeLevels.push("audio1");
+        if (event.options.meta) routeLevels.push("meta");
+        const selectedSource = (await context.parseVariablesInString(event.options.sourceUUID)).trim();
+        const selectedTarget = (await context.parseVariablesInString(event.options.targetUUID)).trim();
+        if (selectedSource && selectedTarget) {
+          self.tfcRoute(routeLevels, selectedSource, selectedTarget);
+        } else {
+          self.log(
+            "warn",
+            `Route by UUID: could not route, source '${selectedSource}', target '${selectedTarget}' (empty value)`
+          );
+        }
+      }
     }
   });
 }
